@@ -1,4 +1,4 @@
-const CACHE = 'mf-v330-push';
+const CACHE = 'mf-v330-push-test';
 
 self.addEventListener('install', e => {
   e.waitUntil(
@@ -7,7 +7,7 @@ self.addEventListener('install', e => {
         './',
         './index.html',
         './style.css',
-        './app.js?v=3.2.1',
+        './app.js?v=3.3.0',
         './config.js',
         './manifest.json',
         './icon-192.png',
