@@ -1,4 +1,4 @@
-const CACHE = 'mf-v340-password';
+const CACHE = 'mf-v341-menu';
 
 self.addEventListener('install', e => {
   e.waitUntil(
@@ -6,8 +6,8 @@ self.addEventListener('install', e => {
       .then(c => c.addAll([
         './',
         './index.html',
-        './style.css',
-        './app.js?v=3.4.0',
+        './style.css?v=3.4.1',
+        './app.js?v=3.4.1',
         './config.js',
         './manifest.json',
         './icon-192.png',
