@@ -1,4 +1,4 @@
-const CACHE = 'mf-v330-push-test';
+const CACHE = 'mf-v340-password';
 
 self.addEventListener('install', e => {
   e.waitUntil(
@@ -7,7 +7,7 @@ self.addEventListener('install', e => {
         './',
         './index.html',
         './style.css',
-        './app.js?v=3.3.0',
+        './app.js?v=3.4.0',
         './config.js',
         './manifest.json',
         './icon-192.png',
@@ -38,54 +38,5 @@ self.addEventListener('fetch', e => {
   e.respondWith(
     fetch(e.request)
       .catch(() => caches.match(e.request))
-  );
-});
-
-self.addEventListener('push', e => {
-  let data = {};
-
-  try {
-    data = e.data ? e.data.json() : {};
-  } catch {
-    data = {};
-  }
-
-  e.waitUntil(
-    self.registration.showNotification(
-      data.title || 'Controle Financeiro',
-      {
-        body: data.body || 'Voce tem um novo lembrete.',
-        icon: './icon-192.png',
-        badge: './icon-192.png',
-        vibrate: [200, 100, 200],
-        data: {
-          url: self.registration.scope
-        }
-      }
-    )
-  );
-});
-
-self.addEventListener('notificationclick', e => {
-  e.notification.close();
-
-  e.waitUntil(
-    self.clients.matchAll({
-      type: 'window',
-      includeUncontrolled: true
-    }).then(async clients => {
-      for (const client of clients) {
-        if (
-          client.url.startsWith(self.registration.scope) &&
-          'focus' in client
-        ) {
-          return client.focus();
-        }
-      }
-
-      return self.clients.openWindow(
-        self.registration.scope
-      );
-    })
   );
 });
