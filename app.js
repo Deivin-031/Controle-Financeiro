@@ -270,7 +270,18 @@ async function claim(u,name){
 }
 
 const passkeyAvailable=()=>location.origin===passkeyOrigin&&!!window.PublicKeyCredential&&!!navigator.credentials;
-const decode64=s=>Uint8Array.from(atob(s.replace(/-/g,'+').replace(/_/g,'/')),c=>c.charCodeAt(0));
+const decode64 = s => {
+  let base64 = String(s).trim()
+    .replace(/-/g, '+')
+    .replace(/_/g, '/');
+
+  base64 += '='.repeat((4 - base64.length % 4) % 4);
+
+  return Uint8Array.from(
+    atob(base64),
+    c => c.charCodeAt(0)
+  );
+};
 const encode64=b=>btoa(String.fromCharCode(...new Uint8Array(b))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
 
 function credentialJSON(c){
